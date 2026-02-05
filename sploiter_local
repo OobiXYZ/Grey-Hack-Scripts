@@ -1,0 +1,23 @@
+metax = include_lib("/lib/metaxploit.so")
+
+// Local 
+hostPC = get_shell.host_computer
+hostPC_lib = hostPC.File("/lib")
+target_files = hostPC_lib.get_files()
+
+print("Found " + target_files.len + " libraries!")
+for listem in target_files
+	print(listem.name)
+end for
+
+
+for files in target_files 	
+    metaLib = metax.load(files.path)
+    if metaLib != null then
+	    print("Scanning Lib name: " + metaLib.lib_name + " " + metaLib.version)
+        scan_data = metax.scan(metaLib)
+        print(scan_data)
+    end if
+end for
+
+print("Finished Scan!")
