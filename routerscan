@@ -1,0 +1,47 @@
+// Basically just a shitty nmap
+metax = include_lib("/lib/metaxploit.so")
+target_ip = "1.1.1.1"
+
+
+router = get_router(target_ip)
+print("essid: " + router.essid_name() + " | " + "bssid: " + router.bssid_name())
+print("remote ip: " + target_ip + " | local ip: " + router.local_ip)
+print("kernal ver: " + router.kernel_version)
+
+print("\n \nBeginning scan")
+
+
+lan_devices = router.devices_lan_ip()
+if lan_devices != null and lan_devices > 0 then
+    print("Found " + lan_devices.len + " LAN devices:")
+    for device in lan_devices
+        print(device)
+    end for
+else
+    print("No LAN devices found!")
+end if
+
+router_ports = router.used_ports
+if router_ports != null and router_ports.len > 0 then
+    print("Found open ports " + router_ports.len + ": ")
+    for port in router_ports
+        print(port.port_number + " which is pointing to " + port.get_lan_ip)
+    end for
+else
+    print("No open ports found!")
+end if
+
+router_rules = router.firewall_rules
+if router_rules != null and router_rules > 0 then 
+    for rules in router_rules 
+        print(router_rules)
+    end for
+
+else
+    print("No router rules found!")
+end if
+
+
+router_devices = router.devices_lan_ip
+
+print("Finished Scan!")
