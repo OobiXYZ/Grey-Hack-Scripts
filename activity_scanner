@@ -1,0 +1,49 @@
+target_ip = user_input("Enter IP: ")
+
+router_choice = function(target_ip, metax)
+	ports = get_router(target_ip).used_ports
+	print(ports)
+	for port in ports
+		
+		print(port + " " + port.port_number)
+		netSession = metax.net_use(target_ip, port.port_number)
+		
+		if port.is_closed == false then
+			print("Open port at: " + port.port_number)
+			print("Target IP: " + target_ip)
+			print("User accounts: " + netSession.get_num_users)
+			print("User Active?: " + netSession.is_any_active_user)
+			print("Root Active?: " + netSession.is_root_active_user)
+			metaLib = netSession.dump_lib
+			print("Library: " + metaLib.lib_name + " - " + metaLib.version + " on port " + ports[0].port_number)
+		else 
+			print("Port " + port.port_number + " not available")
+		end if 
+	end for
+end function
+
+// Setup 
+// Code to find metaxploit and script names and then replace them
+// Used for uploading to host machines
+mx_lib_name = "metaxploit.so"
+local_mx_lib_loc = "/lib/metaxploit.so"
+script_name = "enter_script_name"
+
+// Check to see if metax exists, otherwise downloads it (eventually lol)
+if local_mx_lib_loc == null then
+	if mx_lib_name == null then
+		print("mx not found either in /lib/ or folder. Download it bro")
+		return
+	else
+		print("mx found in same folder") 
+		scr_loc = program_path
+		mx_loc = scr_loc.replace(scr_name, mx_lib_name)
+	end if 	
+else
+	print("mx found in /lib/")
+	mx_loc = local_mx_lib_loc
+end if 
+
+metax = include_lib(mx_loc)
+router_choice(target_ip, metax)
+//pc_choice(target_ip)
