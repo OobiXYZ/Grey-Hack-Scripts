@@ -10,7 +10,7 @@ print("essid: " + router.essid_name() + " | " + "bssid: " + router.bssid_name())
 print("remote ip: " + target_ip + " | local ip: " + router.local_ip)
 print("kernal ver: " + router.kernel_version)
 
-print(" \n \Netsesh stuff")
+print(" \nNetsesh stuff")
 
 router_ports = router.used_ports
 if router_ports != null and router_ports.len > 0 then
@@ -53,7 +53,7 @@ vuln_full_list = []
 temp = []
 vult_test = []
 for scan_item in scan_result
-    print("[" + i + "]" + " " + scan_item)
+    //print("[" + i + "]" + " " + scan_item)
     vuln_found = metax.scan_address(metaLib, scan_item)
     vuln_full_list.push(vuln_found)
     //print(vuln_list)
@@ -68,13 +68,13 @@ for scan_item in scan_result
     //print("Available vulnerabilities: \n \n " + vuln_list.join(", "))
 
     for x in vuln_list
-        print(x + " with " + scan_item)
-        print(x)
-        print(scan_item)
+        //print(x + " with " + scan_item)
+        //print(x)
+        //print(scan_item)
         temp.push(x)
         vult_test.push(scan_item)
     end for
-    print (" ")
+    //print (" ")
     i = i + 1 
 end for 
 
