@@ -1,7 +1,7 @@
 // Testing
 metax = include_lib("/lib/metaxploit.so")
 target_ip = params[0]
-target_port = params[1]
+target_port = params[1].to_int
 o_a = params[2]
 o_v = params[3]
 
