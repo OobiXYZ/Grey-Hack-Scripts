@@ -1,0 +1,107 @@
+// Messy and questionably functionable. 
+
+metax = include_lib("/lib/metaxploit.so")
+target_ip = user_input("Enter IP: ")
+//target_ip = "90.31.201.18"
+
+router = get_router(target_ip)
+print("essid: " + router.essid_name() + " | " + "bssid: " + router.bssid_name())
+print("remote ip: " + target_ip + " | local ip: " + router.local_ip)
+print("kernal ver: " + router.kernel_version)
+
+print(" \n \Netsesh stuff")
+
+router_ports = router.used_ports
+if router_ports != null and router_ports.len > 0 then
+    success = true 
+    print("Found open ports " + router_ports.len + ": ")
+    for port in router_ports
+        print(port.port_number + " which is pointing to " + port.get_lan_ip)
+    end for
+else
+    print("No open ports found!")
+end if
+
+print("Finished Scan!")
+
+if success != null and success == true then
+    print("Select port to scan")
+    choice = user_input("Selection").val
+else
+    print("Not really anything this can do. Exiting \n \n \n")
+    return
+end if 
+
+netSession = metax.net_use(target_ip, choice)
+metaLib = netSession.dump_lib
+print("Library: " + metaLib.lib_name + " - " + metaLib.version + " on port " + choice)
+
+print("\nScanning chosen lib \n ")
+scan_result = metax.scan(metaLib)
+if scan_result != null then
+    print("Success! Found: " + scan_result.len + "possible addresses!")
+else
+    print("Nada! Bye lol")
+    return
+end if
+
+//print(scan_result[0])
+i = 0
+vuln_list = []
+vuln_full_list = []
+temp = []
+vult_test = []
+for scan_item in scan_result
+    print("[" + i + "]" + " " + scan_item)
+    vuln_found = metax.scan_address(metaLib, scan_item)
+    vuln_full_list.push(vuln_found)
+    //print(vuln_list)
+
+
+    segments = vuln_found.split("Unsafe check: ")[1:]
+    for segment in segments
+        labelStart = segment.indexOf("<b>")
+        labelEnd = segment.indexOf("</b>")
+        vuln_list.push(segment[labelStart + 3: labelEnd])
+    end for
+    //print("Available vulnerabilities: \n \n " + vuln_list.join(", "))
+
+    for x in vuln_list
+        print(x + " with " + scan_item)
+        print(x)
+        print(scan_item)
+        temp.push(x)
+        vult_test.push(scan_item)
+    end for
+    print (" ")
+    i = i + 1 
+end for 
+
+
+i = 0
+x1 =[]
+x2 = []
+x3 = []
+for amounts in vult_test
+    if temp[i] != null and vult_test[i] != null then
+        v = temp[i]
+        a = vult_test[i]
+
+        exploit_type = metaLib.overflow(a,v, "pass")
+        if exploit_type != null then
+            //print(" \n!!! Exploit gained: " + exploit_type)
+            //print("Address: " + temp[i] + " Value: " + vult_test[i] + "\n ")
+            x1.push(exploit_type)
+            x2.push(v)
+            x3.push(a)
+        end if
+    end if
+    i = i + 1
+end for
+
+print(" \nTotal Exploits found")
+i = 0
+for bro in x1
+    print("Exploit: " + x1[i] + " \nAddress: " + x2[i] + " Value: " + x3[i])
+    i = i + 1
+end for
