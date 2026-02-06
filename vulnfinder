@@ -1,7 +1,7 @@
 // Messy and questionably functionable. 
 
 metax = include_lib("/lib/metaxploit.so")
-target_ip = "44.172.16.73"
+target_ip = user_input("Enter IP: ")
 
 
 router = get_router(target_ip)
