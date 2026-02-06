@@ -1,0 +1,14 @@
+// Testing
+metax = include_lib("/lib/metaxploit.so")
+target_ip = user_input("Enter Target IP: ")
+target_port = user_input("Enter Target port: ") 
+o_a = user_input("Enter o_a: ")
+o_v = user_input("Enter o_v: ")
+
+netSession = metax.net_use(target_ip, target_port)
+metaLib = netSession.dump_lib
+
+router = get_router(target_ip)
+print("remote ip: " + target_ip + " | local ip: " + router.local_ip)
+test = metaLib.overflow(o_a, o_v)
+test.start_terminal
