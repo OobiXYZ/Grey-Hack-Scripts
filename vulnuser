@@ -1,6 +1,6 @@
 // Testing
 metax = include_lib("/lib/metaxploit.so")
-target_ip = user_input("Enter Target IP: ")
+target_ip = user_input("Enter Target IP: ").val
 target_port = user_input("Enter Target port: ") 
 o_a = user_input("Enter o_a: ")
 o_v = user_input("Enter o_v: ")
