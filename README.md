@@ -1,0 +1,3 @@
+my noob scripts 
+use how you wish
+critique/criticisms are more than welcome 
