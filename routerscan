@@ -1,7 +1,6 @@
 // Basically just a shitty nmap
 metax = include_lib("/lib/metaxploit.so")
-target_ip = "1.1.1.1"
-
+target_ip = user_input("Enter IP: ")
 
 router = get_router(target_ip)
 print("essid: " + router.essid_name() + " | " + "bssid: " + router.bssid_name())
