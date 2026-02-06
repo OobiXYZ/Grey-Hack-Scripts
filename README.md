@@ -1,3 +1,7 @@
-my noob scripts
-use how you wish
-critique/criticisms are more than welcome 
+my nooby scripts
+
+
+use however you wish
+
+
+critique/criticisms are more than welcome if you have the time 
