@@ -26,7 +26,7 @@ print("Finished Scan!")
 
 if success != null and success == true then
     print("Select port to scan")
-    choice = user_input("Selection").val
+    choice = user_input("Selection: ").val
 else
     print("Not really anything this can do. Exiting \n \n \n")
     return
