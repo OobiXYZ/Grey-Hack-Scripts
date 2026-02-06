@@ -1,3 +1,3 @@
-my noob scripts /n n/ 
+my noob scripts
 use how you wish
 critique/criticisms are more than welcome 
