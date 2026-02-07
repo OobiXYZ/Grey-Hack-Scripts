@@ -1,5 +1,5 @@
-target_ip = user_input("Enter IP: ")
-
+//target_ip = user_input("Enter IP: ")
+target_ip = params[0]
 router_choice = function(target_ip, metax)
 	ports = get_router(target_ip).used_ports
 	print(ports)
